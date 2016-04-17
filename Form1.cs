@@ -14,6 +14,7 @@ namespace Mklinker {
         
         public Form1() {
             InitializeComponent();
+            FormClosed += Form1_FormClosed;
 
             m = new MklinkStarter();
 
@@ -26,6 +27,7 @@ namespace Mklinker {
             button1.TextImageRelation = TextImageRelation.ImageBeforeText;
             button1.Image = shieldBitmap;
         }
+
 
         private void Form1_DragEnter(object sender, DragEventArgs e) {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
@@ -45,5 +47,10 @@ namespace Mklinker {
         private void button1_Click(object sender, EventArgs e) {
             m.Start(textBox1.Text, textBox2.Text, this);    
         }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
+            m.Close();
+        }
+
     }
 }

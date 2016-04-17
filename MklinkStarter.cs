@@ -10,8 +10,11 @@ using System.Windows.Forms;
 
 namespace Mklinker {
     class MklinkStarter {
+        readonly Logger logger;
         ExternalProgramStartForm f;
+
         public MklinkStarter() {
+            logger = new Logger();
         }
 
         public void Start(string sourcePath, string linkFolderPath,Form owner) {
@@ -26,6 +29,8 @@ namespace Mklinker {
             }
 
             RunElevated.RunCommand(command, owner);
+            logger.WriteLine(command);
+            logger.flush();
         }
 
         bool IsExist(string sourcePath, string linkPath) {
@@ -47,5 +52,10 @@ namespace Mklinker {
         string BundleDoubleQuotation(string str) {
             return @"""" + str + @"""";
         }
+
+        public void Close() {
+            logger.Close();
+        }
+
     }
 }
