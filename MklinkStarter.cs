@@ -18,19 +18,23 @@ namespace Mklinker {
         }
 
         public void Start(string sourcePath, string linkFolderPath,Form owner) {
-            string command = "mklink ";
-            bool isFolder = IsExist(sourcePath, linkFolderPath);
-            if (isFolder) {
-                string createFolderName = GetParentFolderName(sourcePath);
-                command += string.Format("/d {0} {1}", BundleDoubleQuotation(linkFolderPath + "\\" + createFolderName), BundleDoubleQuotation(sourcePath));
-            } else {
-                FilePathAnalyzer analyzer = new FilePathAnalyzer(sourcePath);
-                command += string.Format("{0} {1}", BundleDoubleQuotation(linkFolderPath + "\\" + analyzer.Target), BundleDoubleQuotation(sourcePath));
-            }
-
+            string command = BuildCommand(sourcePath, linkFolderPath);
             RunElevated.RunCommand(command, owner);
             logger.WriteLine(command);
             logger.flush();
+        }
+
+        string BuildCommand(string sourcePath, string linkDestPath) {
+            string command = "mklink ";
+            bool isFolder = IsExist(sourcePath, linkDestPath);
+            if (isFolder) {
+                string createFolderName = GetParentFolderName(sourcePath);
+                command += string.Format("/d {0} {1}", BundleDoubleQuotation(linkDestPath + "\\" + createFolderName), BundleDoubleQuotation(sourcePath));
+            } else {
+                FilePathAnalyzer analyzer = new FilePathAnalyzer(sourcePath);
+                command += string.Format("{0} {1}", BundleDoubleQuotation(linkDestPath + "\\" + analyzer.Target), BundleDoubleQuotation(sourcePath));
+            }
+            return command;
         }
 
         bool IsExist(string sourcePath, string linkPath) {
