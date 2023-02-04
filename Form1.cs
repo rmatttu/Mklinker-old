@@ -16,6 +16,12 @@ namespace Mklinker {
             InitializeComponent();
             FormClosed += Form1_FormClosed;
 
+            StringBuilder s = new StringBuilder();
+            s.Append(System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
+            s.Append(" ");
+            s.Append(Application.ProductVersion);
+            Text = s.ToString();
+
             m = new MklinkStarter();
 
             //16x16サイズのUAC盾アイコンを取得する

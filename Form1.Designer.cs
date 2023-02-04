@@ -93,7 +93,6 @@
             this.Controls.Add(this.textBox1);
             this.KeyPreview = true;
             this.Name = "Form1";
-            this.Text = "Mklinker v1.1.0";
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
             this.ResumeLayout(false);
